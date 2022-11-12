@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
+
 import styles from "../styles/Home.module.css";
 import { useState } from "react";
 export default function Home() {
@@ -28,7 +28,6 @@ export default function Home() {
     console.log("data: ", data);
     setHosted_url(data["hosted_url"]);
     console.log(hosted_url);
-    // window.location.assign(`${hosted_url}`);
   }
   return (
     <div className={styles.container}>

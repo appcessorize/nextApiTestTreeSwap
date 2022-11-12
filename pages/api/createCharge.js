@@ -2,8 +2,8 @@ const { Client, resources } = require("coinbase-commerce-node");
 Client.init(process.env.CLIENT);
 
 const { Charge } = resources;
-
-const cors = require("cors")({ origin: "*" });
+import cors from "cors";
+// const cors = require("cors")({ origin: "*" });
 
 export default function handler(req, res) {
   if (req.method === "POST") {
