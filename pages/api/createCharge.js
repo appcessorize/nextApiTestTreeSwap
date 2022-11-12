@@ -5,7 +5,7 @@ const { Charge } = resources;
 
 const cors = require("cors")({ origin: "*" });
 
-export default function createCharge(req, res) {
+export default function handler(req, res) {
   if (req.method === "POST") {
     const testReq = JSON.parse(req.body);
     console.log("testReq", testReq, "req", req, "req.body", req.body);

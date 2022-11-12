@@ -7,7 +7,7 @@ export default function Home() {
 
   let chargeData = {
     name: `${treeNumber} trees for ${cryptoNumber} ${currentCrypto} `,
-    description: treeNumber,
+    description: 1,
     local_price: {
       amount: 0.0000001,
       currency: `btc`,
