@@ -1,8 +1,35 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import { useState } from "react";
 export default function Home() {
+  const [hosted_url, setHosted_url] = useState("");
+
+  let chargeData = {
+    name: `${treeNumber} trees for ${cryptoNumber} ${currentCrypto} `,
+    description: treeNumber,
+    local_price: {
+      amount: 0.0000001,
+      currency: `btc`,
+      //case sensitive?
+    },
+    pricing_type: "fixed_price",
+    metadata: {
+      user: "testemail@example.con",
+    },
+  };
+  async function coinbaseConnect() {
+    console.log("coninbase btn pressed called");
+    const res = await fetch("/api/createCharge", {
+      method: "POST",
+      body: JSON.stringify(chargeData),
+    });
+    let data = await res.json();
+    console.log("data: ", data);
+    setHosted_url(data["hosted_url"]);
+    console.log(hosted_url);
+    // window.location.assign(`${hosted_url}`);
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -12,58 +39,24 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <h1>Yo This is a test</h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
+        {hosted_url ? (
           <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
+            href={hosted_url}
+            className="text-white font-semibold bg-[#1EC7D5] py-3 mx-2 rounded-2xl w-full text-center shadow-2xl"
           >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
+            PAY
           </a>
-
+        ) : (
           <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
+            onClick={() => coinbaseConnect()}
+            className="text-white font-semibold bg-[#1EC7D5] py-3 mx-2 rounded-2xl w-full text-center shadow-2xl"
           >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
+            Swap
           </a>
-        </div>
+        )}
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
-  )
+  );
 }
