@@ -26,7 +26,7 @@ export default function Home() {
         name: `treeNumber trees for cryptoNumber currentCrypto `,
         description: 1,
         local_price: {
-          amount: 0.0000001,
+          amount: 0.0001,
           currency: `btc`,
         },
         pricing_type: "fixed_price",

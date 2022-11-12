@@ -50,7 +50,8 @@ export default async function handler(
 
   cors(req, res, async () => {
     const chargeData = JSON.parse(req.body);
-    const charge = await Charge.create(testReq);
+    console.log(chargeData);
+    const charge = await Charge.create(chargeData);
     res.send(charge);
   });
   // } else {
