@@ -5,7 +5,13 @@ const { Charge } = resources;
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import Cors from "cors";
-
+const testReq = {
+  name: "treeNumber trees for cryptoNumber currentCrypto ",
+  description: 1,
+  local_price: { amount: 0.00001, currency: "btc" },
+  pricing_type: "fixed_price",
+  metadata: { user: "testemail@example.con" },
+};
 // Initializing the cors middleware
 // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
 const cors = Cors({
@@ -44,7 +50,7 @@ export default async function handler(
 
   cors(req, res, async () => {
     const chargeData = JSON.parse(req.body);
-    const charge = await Charge.create(chargeData);
+    const charge = await Charge.create(testReq);
     res.send(charge);
   });
   // } else {
