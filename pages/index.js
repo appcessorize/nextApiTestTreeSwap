@@ -6,7 +6,7 @@ export default function Home() {
   const [hosted_url, setHosted_url] = useState("");
 
   let chargeData = {
-    name: `${treeNumber} trees for ${cryptoNumber} ${currentCrypto} `,
+    name: `treeNumber trees for cryptoNumber currentCrypto `,
     description: 1,
     local_price: {
       amount: 0.0000001,
