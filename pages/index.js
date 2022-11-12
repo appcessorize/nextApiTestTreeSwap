@@ -38,24 +38,29 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1>Yo This is a test</h1>
+      <main className="w-full h-screen flex flex-col items-center justify-center ">
+        <div className="md:w-1/3 flex flex-col items-center justify-center">
+          <h1>Yo This is a test</h1>
 
-        {hosted_url ? (
-          <a
-            href={hosted_url}
-            className="text-white font-semibold bg-[#1EC7D5] py-3 mx-2 rounded-2xl w-full text-center shadow-2xl"
-          >
-            PAY
-          </a>
-        ) : (
-          <a
-            onClick={() => coinbaseConnect()}
-            className="text-white font-semibold bg-[#1EC7D5] py-3 mx-2 rounded-2xl w-full text-center shadow-2xl"
-          >
-            Swap
-          </a>
-        )}
+          {hosted_url ? (
+            <>
+              <a
+                href={hosted_url}
+                className="mt-20 text-white font-semibold bg-[#1EC7D5] py-3 mx-2 rounded-2xl w-full text-center shadow-2xl hover:bg-red-500"
+              >
+                PAY
+              </a>
+              <h2>{hosted_url}</h2>
+            </>
+          ) : (
+            <a
+              onClick={() => coinbaseConnect()}
+              className="mt-20 text-white font-semibold bg-[#1EC7D5] py-3 mx-2 rounded-2xl w-full text-center shadow-2xl hover:bg-red-500"
+            >
+              Swap
+            </a>
+          )}
+        </div>
       </main>
     </div>
   );
