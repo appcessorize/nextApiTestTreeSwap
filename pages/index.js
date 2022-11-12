@@ -22,7 +22,18 @@ export default function Home() {
     console.log("coninbase btn pressed called");
     const res = await fetch("/api/createCharge", {
       method: "POST",
-      body: JSON.stringify(chargeData),
+      body: JSON.stringify({
+        name: `treeNumber trees for cryptoNumber currentCrypto `,
+        description: 1,
+        local_price: {
+          amount: 0.0000001,
+          currency: `btc`,
+        },
+        pricing_type: "fixed_price",
+        metadata: {
+          user: "testemail@example.con",
+        },
+      }),
     });
     let data = await res.json();
     console.log("data: ", data);
