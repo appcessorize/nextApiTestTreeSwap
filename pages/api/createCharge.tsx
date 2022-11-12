@@ -45,19 +45,19 @@ export default async function handler(
   await runMiddleware(req, res, cors);
 
   // Rest of the API logic
-  // if (req.method === "POST") {
-  // const testReq = JSON.parse(req.body);
+  if (req.method === "POST") {
+    // const testReq = JSON.parse(req.body);
 
-  cors(req, res, async () => {
-    const chargeData = JSON.parse(req.body);
-    console.log(chargeData);
-    const charge = await Charge.create(chargeData);
-    res.send(charge);
-  });
-  // } else {
-  //   console.log("not POST");
-  //   res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
-  // }
+    cors(req, res, async () => {
+      const chargeData = JSON.parse(req.body);
+      console.log(chargeData);
+      const charge = await Charge.create(chargeData);
+      res.send(charge);
+    });
+  } else {
+    console.log("not POST");
+    res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
+  }
 }
 
 // const cors = require("cors")({ origin: "*" });
