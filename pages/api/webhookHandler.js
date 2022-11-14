@@ -10,7 +10,7 @@ export default async (req, res) => {
   const webhookSecret = process.env.WEBHOOKSECRET;
 
   try {
-    const event = Webhook.verifyEventBody(rawBody, signature, webhookSecret);
+    const event = Webhook.verifyEventBody(data, signature, webhookSecret);
     if (event.type === "charge:pending") {
       res.status(200).send("Status Working -pending");
       console.log("webhook: ", event.type);
