@@ -1,12 +1,13 @@
-const { Webhook } = require("coinbase-commerce-node");
+import { Webhook } from "coinbase-commerce-node";
 import { buffer } from "micro";
-export default async (req, res) => {
+import type { NextApiRequest, NextApiResponse } from "next";
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   // const rawBody = req.rawBody;
   const body = (await buffer(req)).toString();
   const data = JSON.parse(body);
-  console.log("body", body);
+  // console.log("body", body);
   const signature = req.headers["x-cc-webhook-signature"]?.toString();
-  console.log("signature", signature);
+  // console.log("signature", signature);
   const webhookSecret = process.env.WEBHOOKSECRET;
 
   try {
