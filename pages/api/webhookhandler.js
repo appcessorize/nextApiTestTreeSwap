@@ -1,7 +1,6 @@
-import { Webhook } from "coinbase-commerce-node";
-
-import type { NextApiRequest, NextApiResponse } from "next";
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+import { Client, Webhook } from "coinbase-commerce-node";
+Client.init(process.env.CLIENT);
+export default async (req, res) => {
   try {
     const rawBody = JSON.stringify(req.body);
     const signature = String(req.headers["x-cc-webhook-signature"]);
