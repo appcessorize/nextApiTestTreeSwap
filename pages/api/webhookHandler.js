@@ -1,9 +1,21 @@
 const { Webhook } = require("coinbase-commerce-node");
-
+import { buffer } from "micro";
 export default async (req, res) => {
-  const rawBody = req.rawBody;
-  const signature = req.headers["x-cc-webhook-signature"];
+  // const rawBody = req.rawBody;
+  const body = (await buffer(req)).toString();
+  const data = JSON.parse(body);
+  const signature = req.headers["x-cc-webhook-signature"]?.toString();
   const webhookSecret = process.env.WEBHOOKSECRET;
+  if (
+    !signature &&
+    !signatureHelper.isValidSignatureFromString(
+      rawBody,
+      webhookSecret,
+      signature
+    )
+  ) {
+    return res.status(401);
+  }
 
   try {
     const event = Webhook.verifyEventBody(rawBody, signature, webhookSecret);
