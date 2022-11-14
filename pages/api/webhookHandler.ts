@@ -1,17 +1,13 @@
 import { Webhook } from "coinbase-commerce-node";
-import { buffer } from "micro";
+
 import type { NextApiRequest, NextApiResponse } from "next";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  // const rawBody = req.rawBody;
-  const body = (await buffer(req)).toString();
-  const data = JSON.parse(body);
-  // console.log("body", body);
-  const signature = req.headers["x-cc-webhook-signature"]?.toString();
-  // console.log("signature", signature);
-  const webhookSecret = process.env.WEBHOOKSECRET;
-
   try {
-    const event = Webhook.verifyEventBody(data, signature, webhookSecret);
+    const rawBody = JSON.stringify(req.body);
+    const signature = String(req.headers["x-cc-webhook-signature"]);
+    const webhookSecret = process.env.WEBHOOKSECRET;
+    const event = Webhook.verifyEventBody(rawBody, signature, webhookSecret);
+    console.log("event", event);
     if (event.type === "charge:pending") {
       res.status(200).send("Status Working -pending");
       console.log("webhook: ", event.type);
@@ -32,14 +28,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
     res.send(`success ${event.id}`);
   } catch (error) {
-    console.log("request: ", req);
-    console.log("RawBody: ", rawBody);
-    console.log("webhook: error");
     res.status(400).send("failure!");
   }
 };
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
