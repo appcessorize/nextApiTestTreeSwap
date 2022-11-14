@@ -4,18 +4,10 @@ export default async (req, res) => {
   // const rawBody = req.rawBody;
   const body = (await buffer(req)).toString();
   const data = JSON.parse(body);
+  console.log("body", body);
   const signature = req.headers["x-cc-webhook-signature"]?.toString();
+  console.log("signature", signature);
   const webhookSecret = process.env.WEBHOOKSECRET;
-  if (
-    !signature &&
-    !signatureHelper.isValidSignatureFromString(
-      rawBody,
-      webhookSecret,
-      signature
-    )
-  ) {
-    return res.status(401);
-  }
 
   try {
     const event = Webhook.verifyEventBody(rawBody, signature, webhookSecret);
