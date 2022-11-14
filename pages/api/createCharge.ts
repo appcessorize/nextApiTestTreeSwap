@@ -5,13 +5,7 @@ const { Charge } = resources;
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import Cors from "cors";
-const testReq = {
-  name: "treeNumber trees for cryptoNumber currentCrypto ",
-  description: 1,
-  local_price: { amount: 0.00001, currency: "btc" },
-  pricing_type: "fixed_price",
-  metadata: { user: "testemail@example.con" },
-};
+
 // Initializing the cors middleware
 // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
 const cors = Cors({
@@ -46,8 +40,6 @@ export default async function handler(
 
   // Rest of the API logic
   if (req.method === "POST") {
-    // const testReq = JSON.parse(req.body);
-
     cors(req, res, async () => {
       const chargeData = JSON.parse(req.body);
       console.log(chargeData);
@@ -59,22 +51,3 @@ export default async function handler(
     res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
   }
 }
-
-// const cors = require("cors")({ origin: "*" });
-
-// export default function handler(req, res) {
-//   if (req.method === "POST") {
-//     const testReq = JSON.parse(req.body);
-//     console.log("testReq ", testReq);
-//     console.log("testReq", testReq, "req", req, "req.body", req.body);
-//     cors(req, res, async () => {
-//       const chargeData = JSON.parse(req.body);
-//       const charge = await Charge.create(chargeData);
-
-//       res.send(charge);
-//     });
-//   } else {
-//     console.log("not POST");
-//     res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
-//   }
-// }
