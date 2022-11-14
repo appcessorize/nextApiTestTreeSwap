@@ -28,6 +28,7 @@ export default async (req, res) => {
     res.send(`success ${event.id}`);
   } catch (error) {
     console.log("request: ", req);
+    console.log("RawBody: ", rawBody);
     console.log("webhook: error");
     res.status(400).send("failure!");
   }
